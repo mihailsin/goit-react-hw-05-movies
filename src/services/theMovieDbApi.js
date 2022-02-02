@@ -33,6 +33,14 @@ const getMovies = {
     console.log(response.data.results);
     return response.data.results;
   },
+
+  async getMoviesOnQuery(searchTerm) {
+    const response = await axios.get(
+      `/search/movie?api_key=${KEY}&language=en-US&query=${searchTerm}&page=1&include_adult=false`
+    );
+    console.log(response.data.results);
+    return response.data.results;
+  },
 };
 
 export default getMovies;
