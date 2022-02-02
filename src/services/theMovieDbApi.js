@@ -9,9 +9,9 @@ const getMovies = {
     console.log(data);
     return data;
   },
-  async getDetailed() {
+  async getDetailed(id) {
     const response = await axios.get(
-      `/movie/862491?api_key=${KEY}&language=en-US`
+      `/movie/${id}?api_key=${KEY}&language=en-US`
     );
     console.log(response.data);
     return response.data;
