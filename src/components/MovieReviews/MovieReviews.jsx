@@ -15,11 +15,11 @@ const MovieReviews = () => {
     <div>
       {reviews.length > 0 && (
         <ul>
-          {reviews.map((review, idx) => {
+          {reviews.map(({ author, content }, idx) => {
             return (
               <li key={idx}>
-                <h3>{review.author}</h3>
-                <p>{review.content}</p>
+                <h3>{author}</h3>
+                <p>{content}</p>
               </li>
             );
           })}

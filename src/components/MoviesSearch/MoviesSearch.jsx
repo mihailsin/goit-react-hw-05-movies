@@ -1,36 +1,47 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import getMovies from '../../services/theMovieDbApi';
+const queryString = require('query-string');
 const MoviesSearch = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [movies, setMovies] = useState([]);
-  const handleInput = e => {
-    console.log(e.target.value);
-  };
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const queryParams = queryString.parse(location.search);
+  const queryValue = Object.values(queryParams).toString();
+
+  console.log(queryValue);
+  console.log(navigate);
+
   const onSubmit = e => {
     e.preventDefault();
-    console.log(e.target.searchInput.value);
+
     setSearchQuery(e.target.searchInput.value);
+    navigate(`/movies?query=${e.target.searchInput.value}`);
+
+    e.target.reset();
   };
   useEffect(() => {
+    if (!queryValue) return;
     getMovies
-      .getMoviesOnQuery(searchQuery)
+      .getMoviesOnQuery(queryValue)
       .then(setMovies)
       .catch(error => console.log(error));
-  }, [searchQuery]);
+  }, [queryValue, searchQuery]);
 
   return (
     <>
-      <form onSubmit={onSubmit} onInput={handleInput}>
+      <form onSubmit={onSubmit}>
         <input type="text" name="searchInput" />
         <button type="submit">Search</button>
       </form>
       {movies.length > 0 && (
         <ul>
-          {movies.map((movie, idx) => {
+          {movies.map(({ id, original_title }, idx) => {
             return (
               <li key={idx}>
-                <Link to={`/movies/${movie.id}`}>{movie.original_title}</Link>
+                <Link to={`/movies/${id}`}>{original_title}</Link>
               </li>
             );
           })}

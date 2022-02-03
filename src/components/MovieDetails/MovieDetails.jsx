@@ -4,7 +4,7 @@ import MovieReviews from '../MovieReviews';
 import { useState, useEffect } from 'react';
 import { useParams, Route, Routes, NavLink } from 'react-router-dom';
 const MovieDetails = () => {
-  const [movie, setMovie] = useState({});
+  const [movie, setMovie] = useState(null);
   const { movieId } = useParams();
 
   useEffect(() => {
@@ -24,7 +24,11 @@ const MovieDetails = () => {
           />
           <h2>{movie.name}</h2>
           <p>{movie.overview}</p>
-          {/* <p>{movie.genres}</p> */}
+          <p>
+            {movie.genres.map((genre, idx) => (
+              <span key={idx}>{genre.name} </span>
+            ))}
+          </p>
         </div>
         <NavLink to="cast">Cast</NavLink>
         <NavLink to="reviews">Reviews</NavLink>

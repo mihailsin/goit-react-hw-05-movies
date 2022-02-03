@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import getMovies from '../../services/theMovieDbApi';
 
 const MovieCast = () => {
-  const [movies, setMovies] = useState(null);
+  const [movies, setMovies] = useState([]);
   const { movieId } = useParams();
 
   useEffect(() => {
@@ -12,21 +12,21 @@ const MovieCast = () => {
       .then(setMovies)
       .catch(error => console.log(error));
   }, [movieId]);
-  console.log(movies);
+
   return (
-    movies && (
+    movies.length > 0 && (
       <div>
         <h2>Cast</h2>
         <ul>
-          {movies.map((movie, idx) => {
+          {movies.map(({ profile_path, character, name }, idx) => {
             return (
               <li key={idx}>
                 <img
-                  src={`https://image.tmdb.org/t/p/w300/${movie.profile_path}`}
-                  alt=""
+                  src={`https://image.tmdb.org/t/p/w300/${profile_path}`}
+                  alt={`${name} who played ${character}`}
                 />
-                <p>Character: {movie.character}</p>
-                <p>Name: {movie.name}</p>
+                <p>Character: {character}</p>
+                <p>Name: {name}</p>
               </li>
             );
           })}
