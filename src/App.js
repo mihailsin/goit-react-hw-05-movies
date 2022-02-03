@@ -4,6 +4,8 @@ import Navigation from './components/Navigation';
 import HomePage from './pages/HomePage';
 import MoviesPage from './pages/MoviesPage';
 import MovieDetails from './components/MovieDetails';
+import MovieCast from './components/MovieCast';
+import MovieReviews from './components/MovieReviews';
 function App() {
   return (
     <div>
@@ -11,7 +13,10 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/movies" element={<MoviesPage />} />
-        <Route path="movies/:movieId/*" element={<MovieDetails />} />
+        <Route path="/movies/:movieId/*" element={<MovieDetails />}>
+          <Route path="cast" element={<MovieCast />} />
+          <Route path="reviews" element={<MovieReviews />} />
+        </Route>
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </div>

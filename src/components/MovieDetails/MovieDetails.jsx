@@ -1,8 +1,6 @@
 import getMovies from '../../services/theMovieDbApi';
-import MovieCast from '../MovieCast';
-import MovieReviews from '../MovieReviews';
 import { useState, useEffect } from 'react';
-import { useParams, Route, Routes, NavLink } from 'react-router-dom';
+import { useParams, Outlet, NavLink } from 'react-router-dom';
 const MovieDetails = () => {
   const [movie, setMovie] = useState(null);
   const { movieId } = useParams();
@@ -32,10 +30,7 @@ const MovieDetails = () => {
         </div>
         <NavLink to="cast">Cast</NavLink>
         <NavLink to="reviews">Reviews</NavLink>
-        <Routes>
-          <Route path="/cast" element={<MovieCast />} />
-          <Route path="/reviews" element={<MovieReviews />} />
-        </Routes>
+        <Outlet />
       </>
     )
   );
