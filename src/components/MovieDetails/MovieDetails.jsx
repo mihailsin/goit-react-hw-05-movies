@@ -1,5 +1,5 @@
 import getMovies from '../../services/theMovieDbApi';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useParams, Outlet, NavLink } from 'react-router-dom';
 
 import Box from '@mui/material/Box';
@@ -71,7 +71,9 @@ const MovieDetails = () => {
             </Typography>
           </Toolbar>
         </AppBar>
-        <Outlet />
+        <Suspense fallback={<h1>Loading...</h1>}>
+          <Outlet />
+        </Suspense>
       </Box>
     )
   );
