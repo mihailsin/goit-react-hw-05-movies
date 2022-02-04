@@ -1,6 +1,17 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import getMovies from '../../services/theMovieDbApi';
+import { Fragment } from 'react';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import Divider from '@mui/material/Divider';
+
+const style = {
+  width: '100%',
+  maxWidth: 360,
+  bgcolor: 'background.paper',
+};
+
 const TrendingMovies = () => {
   const [movies, setMovies] = useState([]);
 
@@ -14,16 +25,19 @@ const TrendingMovies = () => {
   return (
     <>
       <h2>Trending today</h2>
-      <ul>
+      <List sx={style}>
         {movies &&
           movies.map(({ title, id }) => {
             return (
-              <li key={id}>
-                <Link to={`/movies/${id}`}>{title}</Link>
-              </li>
+              <Fragment key={id}>
+                <ListItem button>
+                  <Link to={`/movies/${id}`}>{title}</Link>
+                </ListItem>
+                <Divider />
+              </Fragment>
             );
           })}
-      </ul>
+      </List>
     </>
   );
 };

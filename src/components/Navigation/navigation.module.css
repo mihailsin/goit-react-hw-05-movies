@@ -1,0 +1,10 @@
+.link {
+  margin-left: 20px;
+  color: #000000;
+  text-decoration: none;
+}
+.active {
+  margin-left: 20px;
+  color: #d11717;
+  text-decoration: underline;
+}

@@ -1,6 +1,21 @@
 import { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
+import TextField from '@mui/material/TextField';
+import { Fragment } from 'react';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import Divider from '@mui/material/Divider';
+import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
 import getMovies from '../../services/theMovieDbApi';
+
+const formStyle = {
+  marginTop: 30,
+};
+
+const buttonStyle = {
+  marginLeft: 20,
+};
 
 const MoviesSearch = () => {
   const [movies, setMovies] = useState([]);
@@ -11,7 +26,6 @@ const MoviesSearch = () => {
     e.preventDefault();
 
     setSearchParams({ query: e.target.searchInput.value });
-    console.log('searchParams:', searchParams.get('query'));
 
     e.target.reset();
   };
@@ -26,20 +40,40 @@ const MoviesSearch = () => {
 
   return (
     <>
-      <form onSubmit={onSubmit}>
-        <input type="text" name="searchInput" />
-        <button type="submit">Search</button>
+      <form onSubmit={onSubmit} style={formStyle}>
+        <Grid
+          container
+          direction="row"
+          justifyContent="flex-start"
+          alignItems="center"
+        >
+          {' '}
+          <TextField
+            id="outlined-basic"
+            label="Movie"
+            defaultValue=""
+            type="text"
+            name="searchInput"
+            autoComplete="off"
+          />
+          <Button type="submit" size="large" style={buttonStyle}>
+            Search
+          </Button>
+        </Grid>
       </form>
       {movies.length > 0 && (
-        <ul>
+        <List>
           {movies.map(({ id, original_title }, idx) => {
             return (
-              <li key={idx}>
-                <Link to={`/movies/${id}`}>{original_title}</Link>
-              </li>
+              <Fragment key={idx}>
+                <ListItem>
+                  <Link to={`/movies/${id}`}>{original_title}</Link>
+                </ListItem>
+                <Divider />
+              </Fragment>
             );
           })}
-        </ul>
+        </List>
       )}
     </>
   );

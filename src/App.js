@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import './App.css';
+import Container from '@mui/material/Container';
 
 const HomePage = lazy(() =>
   import('./pages/HomePage' /*webpackChunkName: "Home"*/)
@@ -23,7 +24,7 @@ const MovieReviews = lazy(() =>
 
 function App() {
   return (
-    <div>
+    <Container maxWidth="lg">
       <Suspense fallback={<h1>Loading...</h1>}>
         <Navigation />
         <Routes>
@@ -36,7 +37,7 @@ function App() {
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Suspense>
-    </div>
+    </Container>
   );
 }
 
