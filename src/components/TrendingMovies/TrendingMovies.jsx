@@ -31,7 +31,9 @@ const TrendingMovies = () => {
             return (
               <Fragment key={id}>
                 <ListItem button>
-                  <Link to={`/movies/${id}`}>{title}</Link>
+                  <Link to={`/movies/${id}`} style={{ textDecoration: 'none' }}>
+                    {title}
+                  </Link>
                 </ListItem>
                 <Divider />
               </Fragment>

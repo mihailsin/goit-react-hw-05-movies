@@ -66,8 +66,10 @@ const MoviesSearch = () => {
           {movies.map(({ id, original_title }, idx) => {
             return (
               <Fragment key={idx}>
-                <ListItem>
-                  <Link to={`/movies/${id}`}>{original_title}</Link>
+                <ListItem button>
+                  <Link to={`/movies/${id}`} style={{ textDecoration: 'none' }}>
+                    {original_title}
+                  </Link>
                 </ListItem>
                 <Divider />
               </Fragment>
