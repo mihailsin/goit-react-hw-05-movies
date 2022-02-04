@@ -25,13 +25,14 @@ const MovieDetails = () => {
     movie && (
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
-          <Grid item md={4} sm={2}>
+          <Grid item md={4}>
             <img
+              style={{ display: 'block' }}
               src={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`}
               alt={`Poster of ${movie.name}`}
             />
           </Grid>
-          <Grid item md={8} sm={4}>
+          <Grid item md={8}>
             <h2>{movie.name}</h2>
             <p>{movie.overview}</p>
             <p>
