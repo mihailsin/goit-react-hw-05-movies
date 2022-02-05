@@ -35,7 +35,7 @@ const TrendingMovies = () => {
                   <Link
                     to={`/movies/${id}`}
                     style={{ textDecoration: 'none' }}
-                    state={{ from: location.pathname }}
+                    state={{ from: location.pathname, search: location.search }}
                   >
                     {title}
                   </Link>

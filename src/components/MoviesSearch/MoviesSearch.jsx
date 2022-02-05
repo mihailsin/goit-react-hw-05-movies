@@ -68,7 +68,7 @@ const MoviesSearch = () => {
                 <ListItem button>
                   <Link
                     to={`/movies/${id}`}
-                    state={location.search}
+                    state={{ from: location.pathname, search: location.search }}
                     style={{ textDecoration: 'none' }}
                   >
                     {original_title}

@@ -14,11 +14,9 @@ const MovieDetails = () => {
   const [movie, setMovie] = useState(null);
   const { movieId } = useParams();
   const location = useLocation();
-  const [prop, setProp] = useState(null);
-  console.log(location.state);
-  console.log(location);
+  const [prevLocationStateObj, setPrevLocationStateObj] = useState(null);
   useEffect(() => {
-    setProp(location.state);
+    setPrevLocationStateObj(location.state);
     getMovies
       .getDetailed(movieId)
       .then(setMovie)
@@ -61,7 +59,7 @@ const MovieDetails = () => {
                     link.isActive ? styles.active : styles.link
                   }
                   to="cast"
-                  state={prop}
+                  state={prevLocationStateObj}
                 >
                   Cast
                 </NavLink>
@@ -70,7 +68,7 @@ const MovieDetails = () => {
                     link.isActive ? styles.active : styles.link
                   }
                   to="reviews"
-                  state={prop}
+                  state={prevLocationStateObj}
                 >
                   Reviews
                 </NavLink>
