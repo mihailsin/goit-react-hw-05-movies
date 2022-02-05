@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -9,7 +9,8 @@ import Button from '@mui/material/Button';
 
 const Navigation = () => {
   const navigate = useNavigate();
-
+  const { pathname } = useLocation();
+  console.log(pathname);
   const goBackwards = () => {
     navigate(-1);
   };
@@ -26,15 +27,17 @@ const Navigation = () => {
                 alignItems="center"
               >
                 <nav>
-                  <Button
-                    type="button"
-                    variant="contained"
-                    size="small"
-                    color="success"
-                    onClick={goBackwards}
-                  >
-                    Go Back
-                  </Button>
+                  {pathname !== '/' && pathname !== '/movies' && (
+                    <Button
+                      type="button"
+                      variant="contained"
+                      size="small"
+                      color="success"
+                      onClick={goBackwards}
+                    >
+                      Go Back
+                    </Button>
+                  )}
                   <NavLink
                     className={link =>
                       link.isActive ? styles.active : styles.link
