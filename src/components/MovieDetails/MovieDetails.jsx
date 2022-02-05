@@ -1,6 +1,6 @@
 import getMovies from '../../services/theMovieDbApi';
 import { useState, useEffect, Suspense } from 'react';
-import { useParams, Outlet, NavLink } from 'react-router-dom';
+import { useParams, Outlet, NavLink, useLocation } from 'react-router-dom';
 
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -13,13 +13,17 @@ import styles from '../Navigation/navigation.module.css';
 const MovieDetails = () => {
   const [movie, setMovie] = useState(null);
   const { movieId } = useParams();
-
+  const location = useLocation();
+  const [prop, setProp] = useState(null);
+  console.log(location.state);
+  console.log(location);
   useEffect(() => {
+    setProp(location.state);
     getMovies
       .getDetailed(movieId)
       .then(setMovie)
       .catch(error => console.log(error));
-  }, [movieId]);
+  }, [location.state, movieId]);
 
   return (
     movie && (
@@ -57,6 +61,7 @@ const MovieDetails = () => {
                     link.isActive ? styles.active : styles.link
                   }
                   to="cast"
+                  state={prop}
                 >
                   Cast
                 </NavLink>
@@ -65,6 +70,7 @@ const MovieDetails = () => {
                     link.isActive ? styles.active : styles.link
                   }
                   to="reviews"
+                  state={prop}
                 >
                   Reviews
                 </NavLink>

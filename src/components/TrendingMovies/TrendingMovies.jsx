@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import getMovies from '../../services/theMovieDbApi';
 import { Fragment } from 'react';
 import List from '@mui/material/List';
@@ -14,6 +14,7 @@ const style = {
 
 const TrendingMovies = () => {
   const [movies, setMovies] = useState([]);
+  const location = useLocation();
 
   useEffect(() => {
     getMovies
@@ -31,7 +32,11 @@ const TrendingMovies = () => {
             return (
               <Fragment key={id}>
                 <ListItem button>
-                  <Link to={`/movies/${id}`} style={{ textDecoration: 'none' }}>
+                  <Link
+                    to={`/movies/${id}`}
+                    style={{ textDecoration: 'none' }}
+                    state={{ from: location.pathname }}
+                  >
                     {title}
                   </Link>
                 </ListItem>

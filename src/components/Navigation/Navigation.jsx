@@ -9,10 +9,13 @@ import Button from '@mui/material/Button';
 
 const Navigation = () => {
   const navigate = useNavigate();
-  const { pathname } = useLocation();
-  console.log(pathname);
+  const location = useLocation();
+
   const goBackwards = () => {
-    navigate(-1);
+    console.log(location.state);
+    if (location.state) navigate(`movies/${location.state}`);
+    if (location.state.from === '/') navigate('/');
+    if (!location.state) navigate('/');
   };
   return (
     <>
@@ -27,17 +30,19 @@ const Navigation = () => {
                 alignItems="center"
               >
                 <nav>
-                  {pathname !== '/' && pathname !== '/movies' && (
-                    <Button
-                      type="button"
-                      variant="contained"
-                      size="small"
-                      color="success"
-                      onClick={goBackwards}
-                    >
-                      Go Back
-                    </Button>
-                  )}
+                  {location.pathname !== '/' &&
+                    location.pathname !== '/movies' &&
+                    location.search === '' && (
+                      <Button
+                        type="button"
+                        variant="contained"
+                        size="small"
+                        color="success"
+                        onClick={goBackwards}
+                      >
+                        Go Back
+                      </Button>
+                    )}
                   <NavLink
                     className={link =>
                       link.isActive ? styles.active : styles.link

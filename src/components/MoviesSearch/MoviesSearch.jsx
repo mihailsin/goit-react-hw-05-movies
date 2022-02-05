@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams, useLocation } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import { Fragment } from 'react';
 import List from '@mui/material/List';
@@ -19,8 +19,8 @@ const buttonStyle = {
 
 const MoviesSearch = () => {
   const [movies, setMovies] = useState([]);
-
   const [searchParams, setSearchParams] = useSearchParams();
+  const location = useLocation();
 
   const onSubmit = e => {
     e.preventDefault();
@@ -47,7 +47,6 @@ const MoviesSearch = () => {
           justifyContent="flex-start"
           alignItems="center"
         >
-          {' '}
           <TextField
             id="outlined-basic"
             label="Movie"
@@ -67,7 +66,11 @@ const MoviesSearch = () => {
             return (
               <Fragment key={idx}>
                 <ListItem button>
-                  <Link to={`/movies/${id}`} style={{ textDecoration: 'none' }}>
+                  <Link
+                    to={`/movies/${id}`}
+                    state={location.search}
+                    style={{ textDecoration: 'none' }}
+                  >
                     {original_title}
                   </Link>
                 </ListItem>
