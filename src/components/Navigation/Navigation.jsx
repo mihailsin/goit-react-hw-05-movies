@@ -13,11 +13,14 @@ const Navigation = () => {
 
   const goBackwards = () => {
     console.log(location.state);
+    console.log(location?.state?.from);
+    console.log(location?.state?.search);
 
-    location.state.search &&
+    if (location?.state?.search) {
       navigate(`${location.state.from}/${location.state.search}`);
-    !location.state.search && navigate('/');
-    location?.state?.from ?? navigate('/');
+    } else {
+      navigate('/');
+    }
   };
   return (
     <>
